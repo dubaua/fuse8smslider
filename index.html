@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Semi-automatic Social Media post slider</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/common.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="page">
+            <div class="swiper-container background-swiper js-background-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide background" v-for="background in backgrounds" :style="'background-image: url('+background.src+')'"></div>
+                </div>
+            </div>
+            <header class="header">
+                <transition name="fade">
+                    <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg" class="logo" v-if="isReady">
+                        <path d="M48.9103787 127.136303l-27.8315974 1.815545 15.4881071-23.195097-10.3271228-25.9083882 26.8459371 7.5623858L74.5347872 69.582939l1.1035945 27.8689092 23.5833861 14.8901958-26.1638782 9.661547-6.8737504 27.030456-17.2737605-21.897744zM163.529333 81.903702l-17.072211 15.7716129-2.133857-23.1441318-20.275299-11.3629416 21.35198-9.1813483 4.541387-22.7942971 15.330106 17.4697464 23.082031-2.7247087-11.877453 19.9782454 9.724092 21.1103345-22.670776-5.1225117zm70.744254 67.93714l-11.715064 20.0739-8.807306-21.508964-22.711567-4.938512 17.734633-15.022881-2.321457-23.126068 19.767912 12.224312 21.276828-9.354185-5.517391 22.577923 15.47126 17.344864-23.177848 1.729611zm-123.668565-18.524638l34.789857-8.674086 19.000202 30.40668-23.047086 27.466447-33.244084-13.431482 2.501111-35.767559zM97 65c-8.836556 0-16-7.163444-16-16s7.163444-16 16-16 16 7.163444 16 16-7.163444 16-16 16zm167.601205-25.3395866l-26.50473 34.6229586L221 39.2304042l43.601205.4300092zM122.5 100c-3.589851 0-6.5-2.9101491-6.5-6.5s2.910149-6.5 6.5-6.5 6.5 2.9101491 6.5 6.5-2.910149 6.5-6.5 6.5z"
+                            fill-rule="evenodd" :fill="currentColor" />
+                    </svg>
+                </transition>
+            </header>
+            <transition name="fade" v-on:after-enter="initPosts">
+                <div class="swiper-container posts-swiper js-posts-swiper" v-if="isReady">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="post in posts">
+                            <post :content="post" :on-mount="updatePosts"></post>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+            <footer class="footer">
+                <div class="footerCol">1</div>
+                <div class="footerCol">2</div>
+                <div class="footerCol">3</div>
+            </footer>
+        </div>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
